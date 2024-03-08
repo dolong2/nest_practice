@@ -16,12 +16,7 @@ export class User extends BaseEntity{
     password: string;    
 
     static async saveEntity(createUserDto: CreateUserRequestDto) {
-        const {name, email, password} = createUserDto;
-        this.save({
-            email,
-            name,
-            password
-        })
+        await this.save({...createUserDto})
     }
     
     static async findByEmail(email: string): Promise<User> {
