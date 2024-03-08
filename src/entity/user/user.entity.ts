@@ -24,4 +24,12 @@ export class User extends BaseEntity{
         })
     }
     
+    static async findByEmail(email: string): Promise<User> {
+        return await this.findOne({
+            where: {
+                email: email
+            }
+        })
+    }
+
 }
