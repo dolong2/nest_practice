@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { CreateUserRequestDto } from "src/controller/users/dto/request-users.dto";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class User {
+export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -13,4 +14,14 @@ export class User {
 
     @Column()
     password: string;    
+
+    static async saveEntity(createUserDto: CreateUserRequestDto) {
+        const {name, email, password} = createUserDto;
+        this.save({
+            email,
+            name,
+            password
+        })
+    }
+    
 }
