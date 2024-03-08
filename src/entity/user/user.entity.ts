@@ -34,5 +34,9 @@ export class User extends BaseEntity{
     static async existsById(id: number): Promise<boolean> {
         return await this.existsById(id);
     }
+
+    static async existsByEmail(email: string): Promise<boolean> {
+        return await this.existsBy({email: email})
+    }
     
 }
