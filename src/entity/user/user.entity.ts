@@ -15,8 +15,13 @@ export class User extends BaseEntity{
     @Column()
     password: string;    
 
-    static async saveEntity(createUserDto: CreateUserRequestDto) {
-        await this.save({...createUserDto})
+    static async saveEntity(createUserDto: CreateUserRequestDto, encodedPassword: string) {
+        const {name, email, } = createUserDto
+        await this.save({
+            email,
+            name,
+            password: encodedPassword
+        })
     }
     
     static async findByEmail(email: string): Promise<User> {
