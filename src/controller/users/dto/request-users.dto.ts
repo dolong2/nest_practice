@@ -3,8 +3,3 @@ export class CreateUserRequestDto {
     readonly email: string;
     readonly password: string;
 }
-
-export class SigninRequestDto {
-    readonly email: string;
-    readonly password: string;
-}
