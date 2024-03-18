@@ -10,6 +10,6 @@ import { AuthController } from './controller/auth/auth.controller';
 @Module({
   imports: [TypeOrmModule.forRoot(typeORMConfig), PassportModule],
   controllers: [UsersController, AuthController],
-  providers: [UsersService, LocalStrategy],
+  providers: [UsersService, LocalStrategy, PasswordEncoder],
 })
 export class AppModule {}
