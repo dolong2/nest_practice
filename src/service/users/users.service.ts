@@ -26,7 +26,7 @@ export class UsersService {
     }
 
     async signin(signinRequestDto: SigninRequestDto): Promise<SigninResponseDto> {
-        const user = await User.findByEmail(signinRequestDto.email);
+        const user = await User.findByEmail({ email: signinRequestDto.email });
         if (user == null)
             throw new HttpException('User Not Found', 404);
 

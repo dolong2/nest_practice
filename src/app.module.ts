@@ -9,18 +9,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { PasswordEncoder } from './util/password-encoder';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(typeORMConfig),
-    PassportModule,
-    JwtModule
-  ],
-  controllers: [
-    UsersController,
-    AuthController
-  ],
-  providers: [
-    UsersService,
-    PasswordEncoder
-  ],
+  imports: [TypeOrmModule.forRoot(typeORMConfig), PassportModule, JwtModule],
+  controllers: [UsersController, AuthController],
+  providers: [UsersService, PasswordEncoder],
 })
 export class AppModule {}
