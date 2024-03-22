@@ -1,3 +1,4 @@
 export enum JwtType {
-    ACCESS, REFRESH
+  ACCESS,
+  REFRESH,
 }
