@@ -7,10 +7,17 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './controller/auth/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { PasswordEncoder } from './util/password-encoder';
+import { ConfigService } from '@nestjs/config';
+import { User } from './entity/user/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeORMConfig), PassportModule, JwtModule],
+  imports: [
+    TypeOrmModule.forRoot(typeORMConfig),
+    PassportModule,
+    JwtModule,
+    TypeOrmModule.forFeature([User]),
+  ],
   controllers: [UsersController, AuthController],
-  providers: [UsersService, PasswordEncoder],
+  providers: [UsersService, PasswordEncoder, ConfigService],
 })
 export class AppModule {}
