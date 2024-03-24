@@ -9,13 +9,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { PasswordEncoder } from './util/password-encoder';
 import { ConfigService } from '@nestjs/config';
 import { User } from './entity/user/user.entity';
+import { Post } from './entity/post/post.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeORMConfig),
     PassportModule,
     JwtModule,
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Post]),
   ],
   controllers: [UsersController, AuthController],
   providers: [UsersService, PasswordEncoder, ConfigService],
