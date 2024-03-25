@@ -21,14 +21,14 @@ export class UsersService {
   ) {}
 
   async signup(createUserDto: CreateUserRequestDto) {
-    if (this.userRepository.existsBy({ email: createUserDto.email }))
+    if (await this.userRepository.existsBy({ email: createUserDto.email }))
       throw new HttpException('Already exists user email', 400);
 
     const encodedPassword = await this.passwordEncoder.encode(
       createUserDto.password,
     );
 
-    this.userRepository.save({
+    await this.userRepository.save({
       email: createUserDto.email,
       name: createUserDto.name,
       password: encodedPassword,
