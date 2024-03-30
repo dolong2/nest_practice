@@ -46,7 +46,7 @@ export class UsersService {
     const accessPayload = { email: user.email, type: JwtType.ACCESS };
     const accessOptions = {
       secret: this.configService.get<string>('ACCESS_SECRET'),
-      expressIn: this.configService.get<string>('ACESS_EXPIRATION'),
+      expiresIn: this.configService.get<string>('ACESS_EXPIRATION'),
     };
     const accessToken = await this.jwtService.signAsync(
       accessPayload,
@@ -56,7 +56,7 @@ export class UsersService {
     const refreshPayload = { email: user.email, type: JwtType.REFRESH };
     const refreshOptions = {
       secret: this.configService.get<string>('REFRESH_SECRET'),
-      expressIn: this.configService.get<string>('REFRESH_EXPIRATION'),
+      expiresIn: this.configService.get<string>('REFRESH_EXPIRATION'),
     };
     const refreshToken = await this.jwtService.signAsync(
       refreshPayload,
