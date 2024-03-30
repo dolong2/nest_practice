@@ -11,6 +11,7 @@ import { User } from './entity/user/user.entity';
 import { Post } from './entity/post/post.entity';
 import { JwtStrategy } from './authentication/jwt/jwt.strategy';
 import { PostsService } from './service/posts/posts.service';
+import { PostsController } from './controller/posts/posts.controller';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { PostsService } from './service/posts/posts.service';
     JwtModule,
     TypeOrmModule.forFeature([User, Post]),
   ],
-  controllers: [UsersController, AuthController],
+  controllers: [UsersController, AuthController, PostsController],
   providers: [
     UsersService,
     PasswordEncoder,
