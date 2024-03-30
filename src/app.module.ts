@@ -9,6 +9,7 @@ import { PasswordEncoder } from './util/password-encoder';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './entity/user/user.entity';
 import { Post } from './entity/post/post.entity';
+import { JwtStrategy } from './authentication/jwt/jwt.strategy';
 
 @Module({
   imports: [
@@ -31,6 +32,6 @@ import { Post } from './entity/post/post.entity';
     TypeOrmModule.forFeature([User, Post]),
   ],
   controllers: [UsersController, AuthController],
-  providers: [UsersService, PasswordEncoder, ConfigService],
+  providers: [UsersService, PasswordEncoder, ConfigService, JwtStrategy],
 })
 export class AppModule {}
