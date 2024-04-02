@@ -5,3 +5,7 @@ export class PostResDto {
     readonly content: string,
   ) {}
 }
+
+export class PostListResDto {
+  constructor(readonly list: PostResDto[]) {}
+}
