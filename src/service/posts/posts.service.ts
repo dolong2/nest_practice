@@ -1,7 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePostReqDto } from 'src/controller/posts/dto/request-posts.dto';
-import { PostResDto } from 'src/controller/posts/dto/response-posts.dto';
+import {
+  PostListResDto,
+  PostResDto,
+} from 'src/controller/posts/dto/response-posts.dto';
 import { Post } from 'src/entity/post/post.entity';
 import { User } from 'src/entity/user/user.entity';
 import { Repository } from 'typeorm';
@@ -26,5 +29,13 @@ export class PostsService {
     if (post == null) throw new HttpException("Can't find this post", 404);
 
     return new PostResDto(post.id, post.title, post.content);
+  }
+
+  async getAllPost(): Promise<PostListResDto> {
+    const allPosts = await this.postRepository.find();
+    const list = allPosts.map(function (post) {
+      return new PostResDto(post.id, post.title, post.content);
+    });
+    return new PostListResDto(list);
   }
 }
