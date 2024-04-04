@@ -38,4 +38,13 @@ export class PostsService {
     });
     return new PostListResDto(list);
   }
+
+  async deletePost(id: number, user: User) {
+    const post = await this.postRepository.findOneBy({ id: id });
+    if (post == null) throw new HttpException("Can't find this post", 404);
+
+    if (post.writer != user) throw new HttpException("user isn't writer", 401);
+
+    await this.postRepository.delete({ id: id });
+  }
 }
