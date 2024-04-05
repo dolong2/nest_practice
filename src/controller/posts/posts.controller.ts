@@ -5,12 +5,13 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PostsService } from 'src/service/posts/posts.service';
-import { CreatePostReqDto } from './dto/request-posts.dto';
+import { CreatePostReqDto, UpdatePostReqDto } from './dto/request-posts.dto';
 import { PostListResDto, PostResDto } from './dto/response-posts.dto';
 
 @Controller('posts')
@@ -38,5 +39,14 @@ export class PostsController {
   @Delete(':id')
   async deletePost(@Param('id') id: number, @Req() req) {
     this.postsService.deletePost(id, req.user);
+  }
+
+  @Put(':id')
+  async updatePost(
+    @Param('id') id: number,
+    @Req() req,
+    @Body() updatePostReqDto: UpdatePostReqDto,
+  ) {
+    await this.postsService.updatePost(id, req.user, updatePostReqDto);
   }
 }
