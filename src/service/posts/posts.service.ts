@@ -1,6 +1,9 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreatePostReqDto } from 'src/controller/posts/dto/request-posts.dto';
+import {
+  CreatePostReqDto,
+  UpdatePostReqDto,
+} from 'src/controller/posts/dto/request-posts.dto';
 import {
   PostListResDto,
   PostResDto,
@@ -46,5 +49,15 @@ export class PostsService {
     if (post.writer != user) throw new HttpException("user isn't writer", 401);
 
     await this.postRepository.delete({ id: id });
+  }
+
+  async updatePost(id: number, user: User, updatePostReqDto: UpdatePostReqDto) {
+    const post = await this.postRepository.findOneBy({ id: id });
+
+    if (post == null) throw new HttpException("Can't find this post", 404);
+
+    if (post.writer != user) throw new HttpException("user isn't writer", 401);
+
+    this.postRepository.update({ id: id }, { ...updatePostReqDto });
   }
 }
