@@ -42,6 +42,14 @@ export class PostsService {
     return new PostListResDto(list);
   }
 
+  async getAllPostsByUser(user: User): Promise<PostListResDto> {
+    const allMyPosts = await this.postRepository.findBy({ writer: user });
+    const postResDtoList = allMyPosts.map((post: Post) => {
+      return new PostResDto(post.id, post.title, post.content);
+    });
+    return new PostListResDto(postResDtoList);
+  }
+
   async deletePost(id: number, user: User) {
     const post = await this.postRepository.findOneBy({ id: id });
     if (post == null) throw new HttpException("Can't find this post", 404);
