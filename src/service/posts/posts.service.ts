@@ -34,7 +34,7 @@ export class PostsService {
     return new PostResDto(post.id, post.title, post.content);
   }
 
-  async getAllPost(): Promise<PostListResDto> {
+  async getAllPosts(): Promise<PostListResDto> {
     const allPosts = await this.postRepository.find();
     const list = allPosts.map(function (post) {
       return new PostResDto(post.id, post.title, post.content);

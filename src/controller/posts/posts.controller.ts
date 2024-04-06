@@ -33,7 +33,7 @@ export class PostsController {
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async getAllPosts(): Promise<PostListResDto> {
-    return await this.postsService.getAllPost();
+    return await this.postsService.getAllPosts();
   }
 
   @Get('my')
