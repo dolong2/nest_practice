@@ -36,6 +36,12 @@ export class PostsController {
     return await this.postsService.getAllPost();
   }
 
+  @Get('my')
+  @UseGuards(AuthGuard('jwt'))
+  async getMyAllPosts(@Req() req): Promise<PostListResDto> {
+    return await this.postsService.getAllPostsByUser(req.user);
+  }
+
   @Delete(':id')
   async deletePost(@Param('id') id: number, @Req() req) {
     this.postsService.deletePost(id, req.user);
