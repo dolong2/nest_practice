@@ -49,6 +49,7 @@ export class PostsController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   async updatePost(
     @Param('id') id: number,
     @Req() req,
