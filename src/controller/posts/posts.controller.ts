@@ -43,6 +43,7 @@ export class PostsController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   async deletePost(@Param('id') id: number, @Req() req) {
     this.postsService.deletePost(id, req.user);
   }
