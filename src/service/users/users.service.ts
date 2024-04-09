@@ -65,4 +65,33 @@ export class UsersService {
 
     return new SigninResponseDto(accessToken, refreshToken);
   }
+
+  async reissue(refreshToken: string): Promise<SigninResponseDto> {
+    const decodedRefreshToken = await this.jwtService.verify(refreshToken, {
+      secret: this.configService.get<string>('REFRESH_SECRET'),
+    });
+    const email = decodedRefreshToken.email;
+
+    const accessPayload = { email: email, type: JwtType.ACCESS };
+    const accessOptions = {
+      secret: this.configService.get<string>('ACCESS_SECRET'),
+      expiresIn: this.configService.get<string>('ACESS_EXPIRATION'),
+    };
+    const accessToken = await this.jwtService.signAsync(
+      accessPayload,
+      accessOptions,
+    );
+
+    const refreshPayload = { email: email, type: JwtType.REFRESH };
+    const refreshOptions = {
+      secret: this.configService.get<string>('REFRESH_SECRET'),
+      expiresIn: this.configService.get<string>('REFRESH_EXPIRATION'),
+    };
+    const newRefreshToken = await this.jwtService.signAsync(
+      refreshPayload,
+      refreshOptions,
+    );
+
+    return new SigninResponseDto(accessToken, newRefreshToken);
+  }
 }
