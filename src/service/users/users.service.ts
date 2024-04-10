@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtType } from 'src/authentication/jwt/jwt.type';
-import { SigninRequestDto } from 'src/controller/auth/dto/request-auth.dto';
+import { SigninReqDto } from 'src/controller/auth/dto/request-auth.dto';
 import { SigninResponseDto } from 'src/controller/auth/dto/response-auth-dto';
 import { PostResDto } from 'src/controller/posts/dto/response-posts.dto';
 import { CreateUserReqDto } from 'src/controller/users/dto/request-users.dto';
@@ -38,13 +38,13 @@ export class UsersService {
     });
   }
 
-  async signin(signinRequestDto: SigninRequestDto): Promise<SigninResponseDto> {
+  async signin(signinReqDto: SigninReqDto): Promise<SigninResponseDto> {
     const user = await this.userRepository.findOneBy({
-      email: signinRequestDto.email,
+      email: signinReqDto.email,
     });
     if (user == null) throw new HttpException('User Not Found', 404);
 
-    await this.passwordEncoder.match(signinRequestDto.password, user.password);
+    await this.passwordEncoder.match(signinReqDto.password, user.password);
 
     const accessPayload = { email: user.email, type: JwtType.ACCESS };
     const accessOptions = {
