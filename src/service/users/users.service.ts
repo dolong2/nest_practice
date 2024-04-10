@@ -6,7 +6,7 @@ import { JwtType } from 'src/authentication/jwt/jwt.type';
 import { SigninRequestDto } from 'src/controller/auth/dto/request-auth.dto';
 import { SigninResponseDto } from 'src/controller/auth/dto/response-auth-dto';
 import { PostResDto } from 'src/controller/posts/dto/response-posts.dto';
-import { CreateUserRequestDto } from 'src/controller/users/dto/request-users.dto';
+import { CreateUserReqDto } from 'src/controller/users/dto/request-users.dto';
 import { UserProfileResDto } from 'src/controller/users/dto/response-users.dto';
 import { Post } from 'src/entity/post/post.entity';
 import { User } from 'src/entity/user/user.entity';
@@ -23,7 +23,7 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async signup(createUserDto: CreateUserRequestDto) {
+  async signup(createUserDto: CreateUserReqDto) {
     if (await this.userRepository.existsBy({ email: createUserDto.email }))
       throw new HttpException('Already exists user email', 400);
 
