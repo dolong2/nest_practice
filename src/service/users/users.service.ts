@@ -7,7 +7,7 @@ import { SigninRequestDto } from 'src/controller/auth/dto/request-auth.dto';
 import { SigninResponseDto } from 'src/controller/auth/dto/response-auth-dto';
 import { PostResDto } from 'src/controller/posts/dto/response-posts.dto';
 import { CreateUserRequestDto } from 'src/controller/users/dto/request-users.dto';
-import { UserProfileResponseDto } from 'src/controller/users/dto/response-users.dto';
+import { UserProfileResDto } from 'src/controller/users/dto/response-users.dto';
 import { Post } from 'src/entity/post/post.entity';
 import { User } from 'src/entity/user/user.entity';
 import { PasswordEncoder } from 'src/util/password-encoder';
@@ -98,10 +98,10 @@ export class UsersService {
     return new SigninResponseDto(accessToken, newRefreshToken);
   }
 
-  async getProfile(user: User): Promise<UserProfileResponseDto> {
+  async getProfile(user: User): Promise<UserProfileResDto> {
     const posts = user.posts.map((post: Post) => {
       return new PostResDto(post.id, post.title, post.content);
     });
-    return new UserProfileResponseDto(user.id, user.name, posts);
+    return new UserProfileResDto(user.id, user.name, posts);
   }
 }
