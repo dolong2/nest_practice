@@ -4,7 +4,10 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtType } from 'src/authentication/jwt/jwt.type';
 import { SigninReqDto } from 'src/controller/auth/dto/request-auth.dto';
-import { SigninResDto } from 'src/controller/auth/dto/response-auth-dto';
+import {
+  ReissueResDto,
+  SigninResDto,
+} from 'src/controller/auth/dto/response-auth-dto';
 import { PostResDto } from 'src/controller/posts/dto/response-posts.dto';
 import { CreateUserReqDto } from 'src/controller/users/dto/request-users.dto';
 import { UserProfileResDto } from 'src/controller/users/dto/response-users.dto';
@@ -69,7 +72,7 @@ export class UsersService {
     return new SigninResDto(accessToken, refreshToken);
   }
 
-  async reissue(refreshToken: string): Promise<SigninResponseDto> {
+  async reissue(refreshToken: string): Promise<ReissueResDto> {
     const decodedRefreshToken = await this.jwtService.verify(refreshToken, {
       secret: this.configService.get<string>('REFRESH_SECRET'),
     });
@@ -95,7 +98,7 @@ export class UsersService {
       refreshOptions,
     );
 
-    return new SigninResponseDto(accessToken, newRefreshToken);
+    return new ReissueResDto(accessToken, newRefreshToken);
   }
 
   async getProfile(user: User): Promise<UserProfileResDto> {
