@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtType } from 'src/authentication/jwt/jwt.type';
 import { SigninReqDto } from 'src/controller/auth/dto/request-auth.dto';
-import { SigninResponseDto } from 'src/controller/auth/dto/response-auth-dto';
+import { SigninResDto } from 'src/controller/auth/dto/response-auth-dto';
 import { PostResDto } from 'src/controller/posts/dto/response-posts.dto';
 import { CreateUserReqDto } from 'src/controller/users/dto/request-users.dto';
 import { UserProfileResDto } from 'src/controller/users/dto/response-users.dto';
@@ -38,7 +38,7 @@ export class UsersService {
     });
   }
 
-  async signin(signinReqDto: SigninReqDto): Promise<SigninResponseDto> {
+  async signin(signinReqDto: SigninReqDto): Promise<SigninResDto> {
     const user = await this.userRepository.findOneBy({
       email: signinReqDto.email,
     });
@@ -66,7 +66,7 @@ export class UsersService {
       refreshOptions,
     );
 
-    return new SigninResponseDto(accessToken, refreshToken);
+    return new SigninResDto(accessToken, refreshToken);
   }
 
   async reissue(refreshToken: string): Promise<SigninResponseDto> {

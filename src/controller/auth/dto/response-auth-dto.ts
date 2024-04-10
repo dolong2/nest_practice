@@ -1,4 +1,4 @@
-export class SigninResponseDto {
+export class SigninResDto {
   constructor(
     readonly accessToken: string,
     readonly refreshToken: string,

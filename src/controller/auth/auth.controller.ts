@@ -1,7 +1,7 @@
 import { Body, Controller, Headers, HttpCode, Post, Put } from '@nestjs/common';
 import { UsersService } from 'src/service/users/users.service';
 import { SigninReqDto } from './dto/request-auth.dto';
-import { ReissueResponseDto, SigninResponseDto } from './dto/response-auth-dto';
+import { ReissueResponseDto, SigninResDto } from './dto/response-auth-dto';
 
 @Controller('auth')
 export class AuthController {
@@ -9,7 +9,7 @@ export class AuthController {
 
   @Post()
   @HttpCode(200)
-  async signin(@Body() signinReqDto: SigninReqDto): Promise<SigninResponseDto> {
+  async signin(@Body() signinReqDto: SigninReqDto): Promise<SigninResDto> {
     return await this.usersService.signin(signinReqDto);
   }
 
