@@ -29,7 +29,7 @@ export class PostsService {
 
   async getOnePost(id: number): Promise<PostResDto> {
     const post = await this.postRepository.findOneBy({ id: id });
-    if (post == null) throw new HttpException("Can't find this post", 404);
+    if (post === null) throw new HttpException("Can't find this post", 404);
 
     return new PostResDto(post.id, post.title, post.content);
   }
@@ -52,9 +52,9 @@ export class PostsService {
 
   async deletePost(id: number, user: User) {
     const post = await this.postRepository.findOneBy({ id: id });
-    if (post == null) throw new HttpException("Can't find this post", 404);
+    if (post === null) throw new HttpException("Can't find this post", 404);
 
-    if (post.writer != user) throw new HttpException("user isn't writer", 401);
+    if (post.writer !== user) throw new HttpException("user isn't writer", 401);
 
     await this.postRepository.delete({ id: id });
   }
@@ -62,9 +62,9 @@ export class PostsService {
   async updatePost(id: number, user: User, updatePostReqDto: UpdatePostReqDto) {
     const post = await this.postRepository.findOneBy({ id: id });
 
-    if (post == null) throw new HttpException("Can't find this post", 404);
+    if (post === null) throw new HttpException("Can't find this post", 404);
 
-    if (post.writer != user) throw new HttpException("user isn't writer", 401);
+    if (post.writer !== user) throw new HttpException("user isn't writer", 401);
 
     this.postRepository.update({ id: id }, { ...updatePostReqDto });
   }
