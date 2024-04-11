@@ -45,7 +45,7 @@ export class UsersService {
     const user = await this.userRepository.findOneBy({
       email: signinReqDto.email,
     });
-    if (user == null) throw new HttpException('User Not Found', 404);
+    if (user === null) throw new HttpException('User Not Found', 404);
 
     await this.passwordEncoder.match(signinReqDto.password, user.password);
 
